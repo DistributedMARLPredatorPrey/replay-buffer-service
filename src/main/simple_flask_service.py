@@ -1,7 +1,10 @@
+import multiprocessing
 from multiprocessing import Process
 
 from flask import Flask, request, jsonify
 from markupsafe import escape
+
+multiprocessing.set_start_method("fork")
 
 
 class SimpleFlaskService:
