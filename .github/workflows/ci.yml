@@ -20,18 +20,18 @@ jobs:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
 
-    # steps:
-    #   - uses: actions/checkout@v4
-    #   - name: Set up Python ${{ matrix.python-version }}
-    #     uses: actions/setup-python@v4
-    #     with:
-    #       python-version: "3.11"
-    #   - name: Install dependencies
-    #     run: |
-    #       python -m pip install --upgrade pip
-    #       pip install -r requirements.txt
-    #   - name: Run tests
-    #     run: pytest -v --cov
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run tests
+        run: pytest -v --cov
 
   format:
     runs-on: ubuntu-latest
