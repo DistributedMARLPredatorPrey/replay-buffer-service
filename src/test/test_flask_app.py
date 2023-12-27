@@ -6,19 +6,22 @@ import requests
 from flask import Flask
 
 
+def hello():
+    return "Hello, World!"
+
+
+def shutdown():
+    print("shutting down")
+    raise RuntimeError()
+
+
 class TestFlaskApp(unittest.TestCase):
     def setUp(self):
         self.app = Flask(__name__)
         self.base_url = "http://127.0.0.1:5000/"
 
-        @self.app.route("/")
-        def hello():
-            return "Hello, World!"
-
-        @self.app.route("/shutdown")
-        def shutdown():
-            print("shutting down")
-            raise RuntimeError()
+        self.app.route("/")(hello)
+        self.app.route("/shutdown")(shutdown)
 
         self.server = Process(target=self.app.run, kwargs={"debug": False})
         self.server.start()
