@@ -13,7 +13,7 @@ def run_flask_app(app):
 
 class TestFlaskApp(unittest.TestCase):
     # app = Flask(__name__)
-    app = Flask("MyApp")
+    app = Flask(__name__.split('.')[0])
 
     def setUp(self):
         self.base_url = "http://127.0.0.1:5000/"

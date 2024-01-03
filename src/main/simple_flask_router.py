@@ -1,15 +1,14 @@
-from threading import Thread
-
-from flask import Flask, request, jsonify
+from flask import request, jsonify, Flask
 from markupsafe import escape
 
 
-class SimpleFlaskService:
-    def __init__(self):
+class SimpleFlaskRouter:
+
+    def __init__(self, app: Flask):
         """
-        Init a SimpleFlaskApp
+        Init a SimpleFlaskRouter
         """
-        self.app = Flask(__name__)
+        self.app = app
 
         @self.app.route("/batch_data/<size>")
         def batch_data():
@@ -21,6 +20,3 @@ class SimpleFlaskService:
                 data = request.get_json()
                 print(data)
                 return jsonify({"message": "JSON received successfully"})
-
-    def run(self, ip, port):
-        Thread(target=self.app.run, args=(ip, port)).start()
