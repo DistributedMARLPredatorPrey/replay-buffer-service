@@ -28,10 +28,14 @@ def record_data():
         return jsonify({"message": "JSON received successfully"})
 
 
+def run_flask_app():
+    app.run()
+
+
 class TestFlaskApp(unittest.TestCase):
     def setUp(self):
         self.base_url = "http://127.0.0.1:5000/"
-        server = Process(target=app.run)
+        server = Process(target=run_flask_app)
         server.start()
         self.server = server
         sleep(1)
