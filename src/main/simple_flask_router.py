@@ -1,22 +1,22 @@
 from flask import request, jsonify, Flask
 from markupsafe import escape
 
+app = Flask(__name__)
 
-class SimpleFlaskRouter:
 
-    def __init__(self, app: Flask):
-        """
-        Init a SimpleFlaskRouter
-        """
-        self.app = app
+@app.route("/")
+def index():
+    return f"Hello, World!"
 
-        @self.app.route("/batch_data/<size>")
-        def batch_data():
-            return f"Hello, {escape(self)}!"
 
-        @self.app.route("/record_data", methods=["POST"])
-        def record_data():
-            if request.method == "POST":
-                data = request.get_json()
-                print(data)
-                return jsonify({"message": "JSON received successfully"})
+@app.route("/batch_data/<size>")
+def batch_data():
+    return f"Batch data"
+
+
+@app.route("/record_data", methods=["POST"])
+def record_data():
+    if request.method == "POST":
+        data = request.get_json()
+        print(data)
+        return jsonify({"message": "JSON received successfully"})

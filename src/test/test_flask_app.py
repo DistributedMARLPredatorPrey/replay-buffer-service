@@ -3,21 +3,14 @@ from multiprocessing import Process
 from time import sleep
 
 import requests
-from flask import Flask
 
-
-def run_flask_app(app):
-    app.route("/")(lambda: "Hello, World!")
-    app.run()
+from src.main.simple_flask_router import app
 
 
 class TestFlaskApp(unittest.TestCase):
-    # app = Flask(__name__)
-    app = Flask(__name__.split('.')[0])
-
     def setUp(self):
         self.base_url = "http://127.0.0.1:5000/"
-        server = Process(target=run_flask_app, args=[self.app])
+        server = Process(target=app.run)
         server.start()
         self.server = server
         sleep(1)
