@@ -3,8 +3,29 @@ from multiprocessing import Process
 from time import sleep
 
 import requests
+from flask import request, jsonify, Flask
 
-from src.main.simple_flask_router import app
+# from src.main.simple_flask_router import app
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+    return "Hello, World!"
+
+
+@app.route("/batch_data/<size>")
+def batch_data():
+    return "Batch data"
+
+
+@app.route("/record_data", methods=["POST"])
+def record_data():
+    if request.method == "POST":
+        data = request.get_json()
+        print(data)
+        return jsonify({"message": "JSON received successfully"})
 
 
 class TestFlaskApp(unittest.TestCase):
