@@ -1,0 +1,21 @@
+src.main package
+================
+
+Submodules
+----------
+
+src.main.simple\_flask\_router module
+-------------------------------------
+
+.. automodule:: src.main.simple_flask_router
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: src.main
+   :members:
+   :undoc-members:
+   :show-inheritance:
