@@ -5,20 +5,19 @@ from time import sleep
 import requests
 from flask import Flask
 
-app = Flask(__name__)
 
-
-def run_flask_app():
+def run_flask_app(app):
     app.route("/")(lambda: "Hello, World!")
     app.run()
 
 
 class TestFlaskApp(unittest.TestCase):
     # app = Flask(__name__)
+    app = Flask("MyApp")
 
     def setUp(self):
         self.base_url = "http://127.0.0.1:5000/"
-        server = Process(target=run_flask_app)
+        server = Process(target=run_flask_app, args=[self.app])
         server.start()
         self.server = server
         sleep(1)
