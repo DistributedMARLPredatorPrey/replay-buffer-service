@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath(".."))
 project = "Replay Buffer Service"
 copyright = "2023, Luca Fabri"
 author = "Luca Fabri"
-#release = "0.1.0"
+# release = "0.1.0"
 
 # -- General configuration ---------------------------------------------------
 
