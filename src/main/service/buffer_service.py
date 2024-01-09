@@ -38,3 +38,7 @@ class BufferService:
 
     def run(self, **kwargs):
         self._app.run(**kwargs)
+
+    def test_client(self):
+        self._app.config["TESTING"] = True
+        self._app.test_client()

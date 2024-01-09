@@ -2,11 +2,11 @@ import json
 import unittest
 import pandas as pd
 
-from test.testing_service.testing_buffer_service import TestingBufferService
+from main.service.buffer_service import BufferService
 
 
 class TestFlaskApp(unittest.TestCase):
-    buffer_service = TestingBufferService()
+    buffer_service = BufferService()
 
     _data = {
         "State": [1.0, 1.1],
