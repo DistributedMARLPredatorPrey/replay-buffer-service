@@ -2,11 +2,11 @@ import json
 import unittest
 import pandas as pd
 
-from src.main.buffer_service import BufferService
+from test.testing_service.testing_buffer_service import TestingBufferService
 
 
 class TestFlaskApp(unittest.TestCase):
-    buffer_service = BufferService()
+    buffer_service = TestingBufferService()
 
     _data = {
         "State": [1.0, 1.1],
@@ -15,22 +15,23 @@ class TestFlaskApp(unittest.TestCase):
         "Next state": [1.1, 1.2],
     }
 
+    def _post_data(self, data):
+        return self.client.post(
+            "record_data", content_type="application/json", data=json.dumps(data)
+        )
+
     def setUp(self):
-        test_app = self.buffer_service.app
+        test_app = self.buffer_service._app
         test_app.config["TESTING"] = True
         self.client = test_app.test_client()
 
     def test_record_data(self):
-        response = self.client.post(
-            "record_data", content_type="application/json", data=json.dumps(self._data)
-        )
+        response = self._post_data(self._data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.text, "OK")
 
     def test_batch_data(self):
         batch_size = 2
-        self.client.post(
-            "record_data", content_type="application/json", data=json.dumps(self._data)
-        )
+        self._post_data(self._data)
         data = self.client.get(f"batch_data/{batch_size}").text
         self.assertEqual(pd.DataFrame(json.loads(data)).shape[0], batch_size)
