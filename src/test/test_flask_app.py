@@ -14,14 +14,12 @@ class TestFlaskApp(unittest.TestCase):
     }
 
     def setUp(self):
-        app.config['TESTING'] = True
+        app.config["TESTING"] = True
         self.app = app.test_client()
 
     def test_record_data(self):
         response = self.app.post(
-            "record_data",
-            content_type='application/json',
-            data=json.dumps(self._data)
+            "record_data", content_type="application/json", data=json.dumps(self._data)
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.text, "OK")
