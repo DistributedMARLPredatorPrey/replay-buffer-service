@@ -21,9 +21,7 @@ class TestFlaskApp(unittest.TestCase):
         )
 
     def setUp(self):
-        test_app = self.buffer_service._app
-        test_app.config["TESTING"] = True
-        self.client = test_app.test_client()
+        self.client = self.buffer_service.test_client()
 
     def test_record_data(self):
         response = self._post_data(self._data)
