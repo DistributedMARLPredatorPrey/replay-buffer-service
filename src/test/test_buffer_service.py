@@ -1,7 +1,8 @@
 import json
 import unittest
+import pandas as pd
 
-from src.main.simple_flask_router import BufferService
+from src.main.buffer_service import BufferService
 
 
 class TestFlaskApp(unittest.TestCase):
@@ -25,3 +26,8 @@ class TestFlaskApp(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.text, "OK")
+
+    def test_batch_data(self):
+        batch_size = 2
+        data = self.client.get(f"batch_data/{batch_size}").text
+        self.assertEqual(pd.DataFrame(json.loads(data)).shape[0], batch_size)
