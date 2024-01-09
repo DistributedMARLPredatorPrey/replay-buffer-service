@@ -1,3 +1,4 @@
+import time
 import unittest
 from multiprocessing import Process
 
@@ -20,6 +21,7 @@ class TestFlaskApp(unittest.TestCase):
         self.base_url = f"http://{self._conf['host']}:{self._conf['port']}/"
         self.server = Process(target=run_flask_app, kwargs=self._conf)
         self.server.start()
+        time.sleep(1)
 
     def test_record_data(self):
         response = requests.post(f"{self.base_url}record_data", json=self._data)
