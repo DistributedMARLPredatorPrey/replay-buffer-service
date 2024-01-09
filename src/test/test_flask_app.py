@@ -1,25 +1,25 @@
+import json
 import unittest
-from multiprocessing import Process
-from time import sleep
 
-import requests
 
-from src.main.simple_flask_router import run_flask_app
+from src.main.simple_flask_router import app
 
 
 class TestFlaskApp(unittest.TestCase):
+    _data = {
+        "State": [1.0, 1.1],
+        "Reward": [-1, -1],
+        "Action": [3, 4],
+        "Next state": [1.1, 1.2],
+    }
+
     def setUp(self):
-        self.base_url = "http://127.0.0.1:5000/"
-        server = Process(target=run_flask_app)
-        server.start()
-        self.server = server
-        sleep(1)
+        app.config["TESTING"] = True
+        self.app = app.test_client()
 
-    def test_hello_endpoint(self):
-        response = requests.get(self.base_url)
+    def test_record_data(self):
+        response = self.app.post(
+            "record_data", content_type="application/json", data=json.dumps(self._data)
+        )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.text, "Hello, World!")
-
-    def tearDown(self):
-        self.server.terminate()
-        self.server.join()
+        self.assertEqual(response.text, "OK")
