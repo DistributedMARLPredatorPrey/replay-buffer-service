@@ -1,13 +1,21 @@
 src.main package
 ================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   src.main.service
+
 Submodules
 ----------
 
-src.main.simple\_flask\_router module
--------------------------------------
+src.main.main module
+--------------------
 
-.. automodule:: src.main.simple_flask_router
+.. automodule:: src.main.main
    :members:
    :undoc-members:
    :show-inheritance:

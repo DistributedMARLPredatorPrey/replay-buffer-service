@@ -4,10 +4,10 @@ src.test package
 Submodules
 ----------
 
-src.test.test\_flask\_app module
---------------------------------
+src.test.test\_buffer\_service module
+-------------------------------------
 
-.. automodule:: src.test.test_flask_app
+.. automodule:: src.test.test_buffer_service
    :members:
    :undoc-members:
    :show-inheritance:
