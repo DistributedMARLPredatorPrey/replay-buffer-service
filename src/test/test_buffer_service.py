@@ -2,7 +2,7 @@ import json
 import unittest
 import pandas as pd
 
-from main.service.buffer_service import BufferService
+from src.main.service.buffer_service import BufferService
 
 
 class TestFlaskApp(unittest.TestCase):
