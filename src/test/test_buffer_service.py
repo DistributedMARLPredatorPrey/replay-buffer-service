@@ -29,5 +29,8 @@ class TestFlaskApp(unittest.TestCase):
 
     def test_batch_data(self):
         batch_size = 2
+        self.client.post(
+            "record_data", content_type="application/json", data=json.dumps(self._data)
+        )
         data = self.client.get(f"batch_data/{batch_size}").text
         self.assertEqual(pd.DataFrame(json.loads(data)).shape[0], batch_size)
