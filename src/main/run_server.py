@@ -1,5 +1,6 @@
 from src.main.service.buffer_service import BufferService
 
-if __name__ == "__main__":
+
+def run_server():
     buffer_service = BufferService()
-    buffer_service.run()
+    return buffer_service.app()

@@ -1,15 +1,14 @@
 from flask import request, Flask
 import pandas as pd
-import os
+from conf import REPLAY_BUFFER_PATH
+from src.main.service.response import Response
 
 
 class BufferService:
     def __init__(self):
         self._app = Flask(__name__)
         self._add_rules()
-        self._file_path = (
-            f"{os.path.dirname(os.path.abspath(__file__))}/resources/data.csv"
-        )
+        self._file_path = REPLAY_BUFFER_PATH
         self._setup_buffer()
 
     def _add_rules(self):
@@ -31,13 +30,22 @@ class BufferService:
     def _record_data(self):
         if request.method == "POST":
             data = request.get_json()
+            data_df = pd.DataFrame(data)
             df = pd.read_csv(self._file_path)
-            df = pd.concat([df, pd.DataFrame(data)], ignore_index=True)
-            df.to_csv(self._file_path, index=False)
-            return "OK"
+            if data_df.shape[1] == df.shape[1]:
+                df = pd.concat(
+                    [
+                        df,
+                    ],
+                    ignore_index=True,
+                )
+                df.to_csv(self._file_path, index=False)
+                return Response.SUCCESSFUL.name
+            return Response.WRONG_SHAPE.name
+        return Response.ERROR.name
 
-    def run(self, **kwargs):
-        self._app.run(**kwargs)
+    def app(self):
+        return self._app
 
     def test_client(self):
         self._app.config["TESTING"] = True
