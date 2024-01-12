@@ -1,8 +1,11 @@
 from flask import request, Flask
 import pandas as pd
 import os
-from src.main.service.conf import REPLAY_BUFFER_PATH
+
+# from src.main.service.conf import REPLAY_BUFFER_PATH
 from src.main.service.response import Response
+
+REPLAY_BUFFER_PATH = f"{os.path.dirname(os.path.abspath(__file__))}/resources/data.csv"
 
 
 class ReplayBufferService:
@@ -30,16 +33,10 @@ class ReplayBufferService:
 
     def _record_data(self):
         if request.method == "POST":
-            data = request.get_json()
-            data_df = pd.DataFrame(data)
+            data_df = pd.DataFrame(request.get_json())
             df = pd.read_csv(self._file_path)
             if data_df.shape[1] == df.shape[1]:
-                df = pd.concat(
-                    [
-                        df,
-                    ],
-                    ignore_index=True,
-                )
+                df = pd.concat([data_df], ignore_index=True)
                 df.to_csv(self._file_path, index=False)
                 return Response.SUCCESSFUL.name
             return Response.WRONG_SHAPE.name

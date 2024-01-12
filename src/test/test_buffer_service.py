@@ -6,8 +6,8 @@ from src.main.service.response import Response
 from src.main.service.replay_buffer_service import ReplayBufferService
 
 
-class TestFlaskApp(unittest.TestCase):
-    buffer_service = ReplayBufferService()
+class TestReplayBufferService(unittest.TestCase):
+    replay_buffer_service = ReplayBufferService()
 
     _data = {
         "State": [1.0, 1.1],
@@ -22,7 +22,7 @@ class TestFlaskApp(unittest.TestCase):
         )
 
     def setUp(self):
-        self.client = self.buffer_service.test_client()
+        self.client = self.replay_buffer_service.test_client()
 
     def test_record_data(self):
         response = self._post_data(self._data)
