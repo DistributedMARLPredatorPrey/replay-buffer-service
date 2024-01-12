@@ -2,11 +2,12 @@ import json
 import unittest
 import pandas as pd
 
-from src.main.service.buffer_service import BufferService
+from src.main.service.response import Response
+from src.main.service.replay_buffer_service import ReplayBufferService
 
 
 class TestFlaskApp(unittest.TestCase):
-    buffer_service = BufferService()
+    buffer_service = ReplayBufferService()
 
     _data = {
         "State": [1.0, 1.1],
@@ -26,7 +27,7 @@ class TestFlaskApp(unittest.TestCase):
     def test_record_data(self):
         response = self._post_data(self._data)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.text, "OK")
+        self.assertEqual(response.text, Response.SUCCESSFUL.name)
 
     def test_batch_data(self):
         batch_size = 2

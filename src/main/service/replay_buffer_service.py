@@ -1,10 +1,11 @@
 from flask import request, Flask
 import pandas as pd
-from conf import REPLAY_BUFFER_PATH
+import os
+from src.main.service.conf import REPLAY_BUFFER_PATH
 from src.main.service.response import Response
 
 
-class BufferService:
+class ReplayBufferService:
     def __init__(self):
         self._app = Flask(__name__)
         self._add_rules()

@@ -1,6 +1,6 @@
-from src.main.service.buffer_service import BufferService
+from src.main.service.replay_buffer_service import ReplayBufferService
 
 
-def run_server():
-    buffer_service = BufferService()
-    return buffer_service.app()
+def app():
+    replay_buffer_service = ReplayBufferService()
+    return replay_buffer_service.app()
