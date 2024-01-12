@@ -36,7 +36,7 @@ class ReplayBufferService:
             data_df = pd.DataFrame(request.get_json())
             df = pd.read_csv(self._file_path)
             if data_df.shape[1] == df.shape[1]:
-                df = pd.concat([data_df], ignore_index=True)
+                df = pd.concat([df, data_df], ignore_index=True)
                 df.to_csv(self._file_path, index=False)
                 return Response.SUCCESSFUL.name
             return Response.WRONG_SHAPE.name
