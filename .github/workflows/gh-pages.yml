@@ -3,7 +3,7 @@ name: Replay Buffer Service Build and Deploy Documentation
 on:
   push:
     branches:
-      - feature/fix-doc-build
+      - release/*
       
 permissions:
   contents: write
