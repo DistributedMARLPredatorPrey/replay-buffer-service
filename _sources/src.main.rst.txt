@@ -12,10 +12,10 @@ Subpackages
 Submodules
 ----------
 
-src.main.main module
---------------------
+src.main.run\_server module
+---------------------------
 
-.. automodule:: src.main.main
+.. automodule:: src.main.run_server
    :members:
    :undoc-members:
    :show-inheritance:
