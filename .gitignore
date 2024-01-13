@@ -6,3 +6,5 @@ src/__pycache__/
 venv/
 src/main/service/resources/*
 build/
+dist/
+docs/_build/
