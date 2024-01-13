@@ -7,4 +7,6 @@ venv/
 src/main/service/resources/*
 build/
 dist/
+.eggs/
+**/*egg-info/
 docs/_build/
