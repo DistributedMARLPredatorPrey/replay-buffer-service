@@ -3,7 +3,7 @@ name: Replay Buffer Service Build and Deploy Documentation
 on:
   push:
     branches:
-      - feature/fix-doc-build
+      - develop
       
 permissions:
   contents: write
@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install .
+          pip install -r requirements.txt
           pip install sphinx sphinx_rtd_theme
       - name: Build documentation
         run: |
