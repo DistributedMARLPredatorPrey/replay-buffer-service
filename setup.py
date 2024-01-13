@@ -10,7 +10,6 @@ setup(
     author="Luca Fabri",
     author_email="luca.fabri1999@gmail.com",
     version="0.1.0",
-    package_dir={"": "src"},
     packages=find_packages(),
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
