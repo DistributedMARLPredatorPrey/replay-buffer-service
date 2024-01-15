@@ -3,6 +3,7 @@ from typing import List
 from flask import request, Flask
 import pandas as pd
 import os
+import numpy as np
 
 from flask.testing import FlaskClient
 from pandas import DataFrame
@@ -47,8 +48,9 @@ class ReplayBufferService:
         :param size: number of rows to batch
         :return: json representing the data batch
         """
-        df: DataFrame = pd.read_csv(self._file_path, nrows=int(size))
-        return df.to_json()
+        df: DataFrame = pd.read_csv(self._file_path)
+        sample: DataFrame = df.sample(size)
+        return sample.to_json()
 
     def _record_data(self) -> str:
         """
