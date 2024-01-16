@@ -4,14 +4,6 @@ src.main.service package
 Submodules
 ----------
 
-src.main.service.conf module
-----------------------------
-
-.. automodule:: src.main.service.conf
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 src.main.service.replay\_buffer\_service module
 -----------------------------------------------
 
