@@ -16,8 +16,8 @@ setup(
     test_suite="src.test",
     install_requires=requirements,
     zip_safe=False,
-    python_requires="==3.11",
-    package_data={
-        "src.main.service": ["resources/*"],
-    },
+    #python_requires="==3.11",
+    #package_data={
+    #    "src.main.service": ["resources/*"],
+    #},
 )

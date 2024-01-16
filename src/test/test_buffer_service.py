@@ -1,4 +1,5 @@
 import json
+import os
 import unittest
 from typing import Dict, List
 
@@ -11,10 +12,13 @@ from src.main.service.replay_buffer_service import ReplayBufferService
 
 
 class TestReplayBufferService(unittest.TestCase):
-    _replay_buffer_service: ReplayBufferService = ReplayBufferService()
+    _replay_buffer_service: ReplayBufferService = ReplayBufferService(
+        predator_dataset_path=f"{os.path.dirname(os.path.abspath(__file__))}/resources/predator.csv",
+        prey_dataset_path=f"{os.path.dirname(os.path.abspath(__file__))}/resources/prey.csv",
+    )
 
     _data: Dict[str, List[float]] = {
-        "State": [1.0, 1.1],
+        "State": [[1.0, 1.0], [1.1, 1.0]],
         "Reward": [-1, -1],
         "Action": [3, 4],
         "Next state": [1.1, 1.2],
@@ -27,7 +31,7 @@ class TestReplayBufferService(unittest.TestCase):
         :return:
         """
         return self.client.post(
-            "record_data", content_type="application/json", data=json.dumps(data)
+            "record_data/predator/", content_type="application/json", data=json.dumps(data)
         )
 
     def setUp(self):
@@ -49,5 +53,5 @@ class TestReplayBufferService(unittest.TestCase):
         """
         batch_size: int = 2
         self._post_data(self._data)
-        data: str = self.client.get(f"batch_data/{batch_size}").text
+        data: str = self.client.get(f"batch_data/predator/{batch_size}").text
         self.assertEqual(pd.DataFrame(json.loads(data)).shape[0], batch_size)
