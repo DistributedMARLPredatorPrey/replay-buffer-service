@@ -3,56 +3,75 @@ from typing import List
 from flask import request, Flask
 import pandas as pd
 import os
-import numpy as np
 
 from flask.testing import FlaskClient
 from pandas import DataFrame
 
-from src.main.service.conf import conf
 from src.main.service.response import Response
 
 
 class ReplayBufferService:
-    def __init__(self):
+    def __init__(self, predator_dataset_path: str, prey_dataset_path: str):
         """
         Init the Replay buffer service by set upping the dataset and by registering the routes.
         """
         self._app: Flask = Flask(__name__)
-        self._file_path: str = conf["REPLAY_BUFFER_PATH"]
+        self._predator_dataset_path: str = predator_dataset_path
+        self._prey_dataset_path: str = prey_dataset_path
         self._add_rules()
-        self._setup_buffer()
+        self._setup_buffers()
 
     def _add_rules(self):
         """
         Add routing rules to the Replay buffer service.
         :return:
         """
-        self._app.add_url_rule("/batch_data/<size>", "batch data", self._batch_data)
         self._app.add_url_rule(
-            "/record_data", "record data", self._record_data, methods=["POST"]
+            "/batch_data/<agent_type>/<size>", "batch data", self._batch_data
+        )
+        self._app.add_url_rule(
+            "/record_data/<agent_type>/", "record data", self._record_data, methods=["POST"]
         )
 
-    def _setup_buffer(self):
+    def _setup_buffers(self):
         """
         Set up the buffer, creating it if it does not exist.
         :return:
         """
-        if not os.path.exists(self._file_path):
-            header: List[str] = ["State", "Reward", "Action", "Next state"]
-            df: DataFrame = pd.DataFrame(columns=header)
-            df.to_csv(self._file_path, index=False)
+        for dataset_dir in [self._predator_dataset_path, self._prey_dataset_path]:
+            dataset_file_path = f"{dataset_dir}data.csv"
+            if not os.path.exists(dataset_file_path):
+                header: List[str] = ["State", "Reward", "Action", "Next state"]
+                df: DataFrame = pd.DataFrame(columns=header)
+                df.to_csv(dataset_file_path, index=False)
 
-    def _batch_data(self, size) -> str:
+    def _batch_data(self, agent_type, size) -> str:
         """
         Batches data from the replay buffer.
         :param size: number of rows to batch
         :return: json representing the data batch
         """
-        df: DataFrame = pd.read_csv(self._file_path)
-        sample: DataFrame = df.sample(size)
+        dataset_path = (
+            self._prey_dataset_path
+            if agent_type == "predator"
+            else self._prey_dataset_path
+            if agent_type == "prey"
+            else None
+        )
+        df = pd.read_csv(dataset_path) if dataset_path is not None else pd.DataFrame()
+        sample: DataFrame = df.sample(int(size))
         return sample.to_json()
 
-    def _record_data(self) -> str:
+    def _dataset_path_by_agent_type(self, agent_type):
+        return (
+            self._prey_dataset_path
+            if agent_type == "predator"
+            else self._prey_dataset_path
+            if agent_type == "prey"
+            else None
+        )
+
+    def _record_data(self, agent_type) -> str:
         """
         Records data inside the replay buffer.
         :return: Name of the Response:
@@ -61,13 +80,15 @@ class ReplayBufferService:
             - ERROR if a generic error occurred
         """
         if request.method == "POST":
-            data_df: DataFrame = pd.DataFrame(request.get_json())
-            df: DataFrame = pd.read_csv(self._file_path)
-            if data_df.shape[1] == df.shape[1]:
-                df: DataFrame = pd.concat([df, data_df], ignore_index=True)
-                df.to_csv(self._file_path, index=False)
-                return Response.SUCCESSFUL.name
-            return Response.WRONG_SHAPE.name
+            dataset_path = self._dataset_path_by_agent_type(agent_type)
+            if dataset_path is not None:
+                data_df: DataFrame = pd.DataFrame(request.get_json())
+                df: DataFrame = pd.read_csv(self._predator_dataset_path)
+                if data_df.shape[1] == df.shape[1]:
+                    df: DataFrame = pd.concat([df, data_df], ignore_index=True)
+                    df.to_csv(self._predator_dataset_path, index=False)
+                    return Response.SUCCESSFUL.name
+                return Response.WRONG_SHAPE.name
         return Response.ERROR.name
 
     def app(self) -> Flask:
