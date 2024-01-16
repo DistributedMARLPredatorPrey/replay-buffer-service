@@ -31,7 +31,9 @@ class TestReplayBufferService(unittest.TestCase):
         :return:
         """
         return self.client.post(
-            "record_data/predator/", content_type="application/json", data=json.dumps(data)
+            "record_data/predator/",
+            content_type="application/json",
+            data=json.dumps(data),
         )
 
     def setUp(self):

@@ -30,7 +30,10 @@ class ReplayBufferService:
             "/batch_data/<agent_type>/<size>", "batch data", self._batch_data
         )
         self._app.add_url_rule(
-            "/record_data/<agent_type>/", "record data", self._record_data, methods=["POST"]
+            "/record_data/<agent_type>/",
+            "record data",
+            self._record_data,
+            methods=["POST"],
         )
 
     def _setup_buffers(self):
@@ -56,6 +59,11 @@ class ReplayBufferService:
         return sample.to_json()
 
     def _dataset_path_by_agent_type(self, agent_type):
+        """
+        Get the dataset path from the agent type
+        :param agent_type: either "predator" or "prey"
+        :return: predator or prey dataset path, if agent_type exist. None otherwise.
+        """
         return (
             self._predator_dataset_path
             if agent_type == "predator"

@@ -3,7 +3,7 @@ from enum import Enum
 
 class Response(Enum):
     """
-    Enum with the possible responses provided by the Replay Buffer.
+    Enum modelling the possible responses provided by the Replay Buffer.
     """
 
     SUCCESSFUL = 1
