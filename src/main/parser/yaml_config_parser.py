@@ -5,7 +5,6 @@ from src.main.parser.config import EnvironmentConfig, ReplayBufferConfig
 
 
 class YamlConfigParser:
-
     @staticmethod
     def _load_config(file_path):
         """
@@ -22,7 +21,9 @@ class YamlConfigParser:
         whose path is specified by GLOBAL_CONFIG_PATH environment variable.
         :return: environment config
         """
-        env_conf = self._load_config(os.environ.get("GLOBAL_CONFIG_PATH"))["environment"]
+        env_conf = self._load_config(os.environ.get("GLOBAL_CONFIG_PATH"))[
+            "environment"
+        ]
         return EnvironmentConfig(
             num_predators=env_conf["num_predators"],
             num_preys=env_conf["num_preys"],

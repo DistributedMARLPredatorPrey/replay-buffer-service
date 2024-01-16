@@ -30,7 +30,10 @@ class ReplayBufferService:
             "/batch_data/<agent_type>/<size>", "batch data", self._batch_data
         )
         self._app.add_url_rule(
-            "/record_data/<agent_type>/", "record data", self._record_data, methods=["POST"]
+            "/record_data/<agent_type>/",
+            "record data",
+            self._record_data,
+            methods=["POST"],
         )
 
     def _setup_buffers(self):
