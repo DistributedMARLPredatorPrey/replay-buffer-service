@@ -5,9 +5,6 @@ from src.main.parser.config import EnvironmentConfig, ReplayBufferConfig
 
 
 class YamlConfigParser:
-    def __init__(self):
-        self.global_config = self._load_config(os.environ.get("GLOBAL_CONFIG_PATH"))
-        self.app_config = self._load_config(os.environ.get("APP_CONFIG_PATH"))
 
     @staticmethod
     def _load_config(env_var):
@@ -15,7 +12,7 @@ class YamlConfigParser:
             return yaml.safe_load(conf)
 
     def environment_configuration(self):
-        env_conf = self.global_config["environment"]
+        env_conf = self._load_config(os.environ.get("GLOBAL_CONFIG_PATH"))["environment"]
         return EnvironmentConfig(
             num_predators=env_conf["num_predators"],
             num_preys=env_conf["num_preys"],
@@ -26,8 +23,7 @@ class YamlConfigParser:
         )
 
     def replay_buffer_configuration(self):
-        replay_buffer_conf = self.app_config["replay_buffer"]
         return ReplayBufferConfig(
-            predator_dataset_path=replay_buffer_conf["predator_dataset_path"],
-            prey_dataset_path=replay_buffer_conf["prey_dataset_path"],
+            predator_dataset_path=os.environ.get("PREDATOR_DATASET_PATH"),
+            prey_dataset_path=os.environ.get("PREY_DATASET_PATH"),
         )

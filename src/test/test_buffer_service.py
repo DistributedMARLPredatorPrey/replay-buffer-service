@@ -1,4 +1,5 @@
 import json
+import os
 import unittest
 from typing import Dict, List
 
@@ -12,8 +13,8 @@ from src.main.service.replay_buffer_service import ReplayBufferService
 
 class TestReplayBufferService(unittest.TestCase):
     _replay_buffer_service: ReplayBufferService = ReplayBufferService(
-        predator_dataset_path="/home/luca/Desktop/ds/replay-buffer-service/src/main/service/resources/predator/",
-        prey_dataset_path="/home/luca/Desktop/ds/replay-buffer-service/src/main/service/resources/prey/"
+        predator_dataset_path=f"{os.path.dirname(os.path.abspath(__file__))}/resources/predator.csv",
+        prey_dataset_path=f"{os.path.dirname(os.path.abspath(__file__))}/resources/prey.csv",
     )
 
     _data: Dict[str, List[float]] = {

@@ -18,7 +18,6 @@ class ReplayBufferService:
         self._app: Flask = Flask(__name__)
         self._predator_dataset_path: str = predator_dataset_path
         self._prey_dataset_path: str = prey_dataset_path
-        self._dataset_name: str = "data.csv"
         self._add_rules()
         self._setup_buffers()
 
@@ -39,12 +38,11 @@ class ReplayBufferService:
         Set up the buffer, creating it if it does not exist.
         :return:
         """
-        for dataset_dir in [self._predator_dataset_path, self._prey_dataset_path]:
-            dataset_file_path = f"{dataset_dir}{self._dataset_name}"
-            if not os.path.exists(dataset_file_path):
+        for dataset_path in [self._predator_dataset_path, self._prey_dataset_path]:
+            if not os.path.exists(dataset_path):
                 header: List[str] = ["State", "Reward", "Action", "Next state"]
                 df: DataFrame = pd.DataFrame(columns=header)
-                df.to_csv(dataset_file_path, index=False)
+                df.to_csv(dataset_path, index=False)
 
     def _batch_data(self, agent_type, size) -> str:
         """
@@ -59,9 +57,9 @@ class ReplayBufferService:
 
     def _dataset_path_by_agent_type(self, agent_type):
         return (
-            f"{self._prey_dataset_path}{self._dataset_name}"
+            self._predator_dataset_path
             if agent_type == "predator"
-            else f"{self._prey_dataset_path}{self._dataset_name}"
+            else self._prey_dataset_path
             if agent_type == "prey"
             else None
         )
