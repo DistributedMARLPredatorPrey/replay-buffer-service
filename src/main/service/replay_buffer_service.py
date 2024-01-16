@@ -18,6 +18,7 @@ class ReplayBufferService:
         self._app: Flask = Flask(__name__)
         self._predator_dataset_path: str = predator_dataset_path
         self._prey_dataset_path: str = prey_dataset_path
+        self._dataset_name: str = "data.csv"
         self._add_rules()
         self._setup_buffers()
 
@@ -39,7 +40,7 @@ class ReplayBufferService:
         :return:
         """
         for dataset_dir in [self._predator_dataset_path, self._prey_dataset_path]:
-            dataset_file_path = f"{dataset_dir}data.csv"
+            dataset_file_path = f"{dataset_dir}{self._dataset_name}"
             if not os.path.exists(dataset_file_path):
                 header: List[str] = ["State", "Reward", "Action", "Next state"]
                 df: DataFrame = pd.DataFrame(columns=header)
@@ -51,22 +52,16 @@ class ReplayBufferService:
         :param size: number of rows to batch
         :return: json representing the data batch
         """
-        dataset_path = (
-            self._prey_dataset_path
-            if agent_type == "predator"
-            else self._prey_dataset_path
-            if agent_type == "prey"
-            else None
-        )
+        dataset_path = self._dataset_path_by_agent_type(agent_type)
         df = pd.read_csv(dataset_path) if dataset_path is not None else pd.DataFrame()
         sample: DataFrame = df.sample(int(size))
         return sample.to_json()
 
     def _dataset_path_by_agent_type(self, agent_type):
         return (
-            self._prey_dataset_path
+            f"{self._prey_dataset_path}{self._dataset_name}"
             if agent_type == "predator"
-            else self._prey_dataset_path
+            else f"{self._prey_dataset_path}{self._dataset_name}"
             if agent_type == "prey"
             else None
         )
@@ -83,10 +78,10 @@ class ReplayBufferService:
             dataset_path = self._dataset_path_by_agent_type(agent_type)
             if dataset_path is not None:
                 data_df: DataFrame = pd.DataFrame(request.get_json())
-                df: DataFrame = pd.read_csv(self._predator_dataset_path)
+                df: DataFrame = pd.read_csv(dataset_path)
                 if data_df.shape[1] == df.shape[1]:
                     df: DataFrame = pd.concat([df, data_df], ignore_index=True)
-                    df.to_csv(self._predator_dataset_path, index=False)
+                    df.to_csv(dataset_path, index=False)
                     return Response.SUCCESSFUL.name
                 return Response.WRONG_SHAPE.name
         return Response.ERROR.name
