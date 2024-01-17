@@ -55,7 +55,7 @@ class ReplayBufferService:
         """
         dataset_path = self._dataset_path_by_agent_type(agent_type)
         df = pd.read_csv(dataset_path) if dataset_path is not None else pd.DataFrame()
-        return df.sample(int(size)).to_json() if not df.empty else ""
+        return df.sample(int(size)).to_json() if len(df) >= size else ""
 
     def _dataset_path_by_agent_type(self, agent_type):
         """
