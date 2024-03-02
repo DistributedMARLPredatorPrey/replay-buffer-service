@@ -18,10 +18,10 @@ class TestReplayBufferService(unittest.TestCase):
     )
 
     _data: Dict[str, List[float]] = {
-        "State": [[1.0, 1.0], [1.1, 1.0]],
-        "Reward": [-1, -1],
-        "Action": [3, 4],
-        "Next state": [1.1, 1.2],
+        "State": [[1.0, 1.0, 2.0, 2.0], [1.1, 1.1, 2.1, 2.1]],
+        "Reward": [[1, 2], [1, 2]],
+        "Action": [[1.0, 1.0, 2.0, 2.0], [1.1, 1.1, 2.1, 2.1]],
+        "Next state": [[1.0, 1.0, 2.0, 2.0], [1.1, 1.1, 2.1, 2.1]]
     }
 
     def _post_data(self, data) -> TestResponse:
@@ -54,6 +54,7 @@ class TestReplayBufferService(unittest.TestCase):
         :return:
         """
         batch_size: int = 2
-        self._post_data(self._data)
+        for _ in range(100):
+            self._post_data(self._data)
         data: str = self.client.get(f"batch_data/predator/{batch_size}").text
         self.assertEqual(pd.DataFrame(json.loads(data)).shape[0], batch_size)
