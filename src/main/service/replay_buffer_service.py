@@ -1,3 +1,4 @@
+from io import StringIO
 from typing import List
 
 from flask import request, Flask
@@ -55,7 +56,7 @@ class ReplayBufferService:
         """
         dataset_path = self._dataset_path_by_agent_type(agent_type)
         df = pd.read_csv(dataset_path) if dataset_path is not None else pd.DataFrame()
-        return df.sample(int(size)).to_json() if len(df) >= int(size) else df.to_json
+        return df.sample(int(size)).to_json() if len(df) >= int(size) else "{}"
 
     def _dataset_path_by_agent_type(self, agent_type):
         """
@@ -81,14 +82,13 @@ class ReplayBufferService:
         """
         if request.method == "POST":
             dataset_path = self._dataset_path_by_agent_type(agent_type)
-            if dataset_path is not None:
-                data_df: DataFrame = pd.DataFrame(request.get_json())
-                df: DataFrame = pd.read_csv(dataset_path)
-                if data_df.shape[1] == df.shape[1]:
-                    df: DataFrame = pd.concat([df, data_df], ignore_index=True)
-                    df.to_csv(dataset_path, index=False)
-                    return Response.SUCCESSFUL.name
-                return Response.WRONG_SHAPE.name
+            data_df: DataFrame = pd.read_json(StringIO(request.get_json()))
+            df: DataFrame = pd.read_csv(dataset_path)
+            if data_df.shape[1] == df.shape[1]:
+                df: DataFrame = pd.concat([df, data_df], ignore_index=True)
+                df.to_csv(dataset_path, index=False)
+                return Response.SUCCESSFUL.name
+            return Response.WRONG_SHAPE.name
         return Response.ERROR.name
 
     def app(self) -> Flask:
