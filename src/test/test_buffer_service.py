@@ -21,7 +21,7 @@ class TestReplayBufferService(unittest.TestCase):
         "State": [[1.0, 1.0, 2.0, 2.0], [1.1, 1.1, 2.1, 2.1]],
         "Reward": [[1, 2], [1, 2]],
         "Action": [[1.0, 1.0, 2.0, 2.0], [1.1, 1.1, 2.1, 2.1]],
-        "Next state": [[1.0, 1.0, 2.0, 2.0], [1.1, 1.1, 2.1, 2.1]]
+        "Next state": [[1.0, 1.0, 2.0, 2.0], [1.1, 1.1, 2.1, 2.1]],
     }
 
     def _post_data(self, data) -> TestResponse:
