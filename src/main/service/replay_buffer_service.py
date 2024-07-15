@@ -58,10 +58,12 @@ class ReplayBufferService:
         :return:
         """
         for dataset_path in [self.__predator_dataset_path, self.__prey_dataset_path]:
-            if not os.path.exists(dataset_path):
-                header: List[str] = ["State", "Reward", "Action", "Next state"]
-                df: DataFrame = pd.DataFrame(columns=header)
-                df.to_csv(dataset_path, index=False)
+            if os.path.exists(dataset_path):
+                os.remove(dataset_path)
+
+            header: List[str] = ["State", "Reward", "Action", "Next state"]
+            df: DataFrame = pd.DataFrame(columns=header)
+            df.to_csv(dataset_path, index=False)
 
     def __batch_data(self, agent_type, size) -> str:
         """
