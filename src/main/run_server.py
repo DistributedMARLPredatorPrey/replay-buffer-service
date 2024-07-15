@@ -2,6 +2,9 @@ from flask import Flask
 
 from src.main.parser.yaml_config_parser import YamlConfigParser
 from src.main.service.replay_buffer_service import ReplayBufferService
+import logging
+
+logging.getLogger().setLevel(logging.INFO)
 
 
 def app() -> Flask:

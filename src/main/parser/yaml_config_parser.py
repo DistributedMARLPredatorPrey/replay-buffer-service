@@ -6,7 +6,7 @@ from src.main.parser.config import EnvironmentConfig, ReplayBufferConfig
 
 class YamlConfigParser:
     @staticmethod
-    def _load_config(file_path):
+    def __load_config(file_path):
         """
         Loads a config file.
         :param file_path: file's path
@@ -21,7 +21,7 @@ class YamlConfigParser:
         whose path is specified by GLOBAL_CONFIG_PATH environment variable.
         :return: environment config
         """
-        env_conf = self._load_config(os.environ.get("GLOBAL_CONFIG_PATH"))[
+        env_conf = self.__load_config(os.environ.get("GLOBAL_CONFIG_PATH"))[
             "environment"
         ]
         return EnvironmentConfig(
