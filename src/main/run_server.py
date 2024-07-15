@@ -6,6 +6,7 @@ import logging
 
 logging.getLogger().setLevel(logging.INFO)
 
+
 def app() -> Flask:
     """
     Creates a Replay buffer service
