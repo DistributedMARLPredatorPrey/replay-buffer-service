@@ -38,9 +38,7 @@ class ReplayBufferService:
         Add routing rules to the Replay buffer service.
         :return:
         """
-        self.__app.add_url_rule(
-            "/batch_data/<size>", "batch data", self.__batch_data
-        )
+        self.__app.add_url_rule("/batch_data/<size>", "batch data", self.__batch_data)
         self.__app.add_url_rule(
             "/record_data/",
             "record data",

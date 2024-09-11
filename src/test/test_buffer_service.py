@@ -10,6 +10,7 @@ from werkzeug.test import TestResponse
 from src.main.service.response import Response
 from src.main.service.replay_buffer_service import ReplayBufferService
 
+
 class TestReplayBufferService(unittest.TestCase):
     __replay_buffer_service: ReplayBufferService = ReplayBufferService(
         predator_dataset_path=f"{os.path.dirname(os.path.abspath(__file__))}/resources/predator.csv",
