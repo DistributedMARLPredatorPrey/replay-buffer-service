@@ -12,14 +12,6 @@ src.main.service.replay\_buffer\_service module
    :undoc-members:
    :show-inheritance:
 
-src.main.service.response module
---------------------------------
-
-.. automodule:: src.main.service.response
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 
