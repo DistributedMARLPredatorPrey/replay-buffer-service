@@ -1,0 +1,65 @@
+components:
+    schemas:
+        DataRecord:
+            type: object
+            properties:
+                State:
+                    type: array
+                    items:
+                        type: array
+                        items:
+                            type: number
+                Reward:
+                    type: array
+                    items:
+                        type: array
+                        items:
+                            type: number
+                Action:
+                    type: array
+                    items:
+                        type: array
+                        items:
+                            type: number
+                Next State:
+                    type: array
+                    items:
+                        type: array
+                        items:
+                            type: number
+
+        DataBatch:
+            type: object
+            properties:
+                State:
+                    type: array
+                    items:
+                        type: array
+                        items:
+                            type: array
+                            items:
+                                type: number
+                Reward:
+                    type: array
+                    items:
+                        type: array
+                        items:
+                            type: array
+                            items:
+                                type: number
+                Action:
+                    type: array
+                    items:
+                        type: array
+                        items:
+                            type: array
+                            items:
+                                type: number
+                Next State:
+                    type: array
+                    items:
+                        type: array
+                        items:
+                            type: array
+                            items:
+                                type: number
