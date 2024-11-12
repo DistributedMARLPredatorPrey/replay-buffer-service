@@ -31,12 +31,12 @@ jobs:
       - name: Build API Documentation
         uses: fluximus-prime/redocly-cli-github-action@v1
         with:
-          args: 'build-docs docs/api/openapi.yaml -o docs/api/index.html'
+          args: 'build-docs docs/api/openapi.yaml -o docs/static/html/api/index.html'
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/
+          publish_dir: docs/static/html/
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: 'docs: update code documentation'
