@@ -88,25 +88,51 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="module-src.main.service.post_response">
-<span id="src-main-service-post-response-module"></span><h2>src.main.service.post_response module<a class="headerlink" href="#module-src.main.service.post_response" title="Link to this heading"></a></h2>
+<section id="module-src.main.service.data_batch_validator">
+<span id="src-main-service-data-batch-validator-module"></span><h2>src.main.service.data_batch_validator module<a class="headerlink" href="#module-src.main.service.data_batch_validator" title="Link to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="src.main.service.post_response.PostResponseStatus">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.main.service.post_response.</span></span><span class="sig-name descname"><span class="pre">PostResponseStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.main.service.post_response.PostResponseStatus" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="src.main.service.data_batch_validator.DataBatchValidator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.main.service.data_batch_validator.</span></span><span class="sig-name descname"><span class="pre">DataBatchValidator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.main.parser.html#src.main.parser.config.ReplayBufferConfig" title="src.main.parser.config.ReplayBufferConfig"><span class="pre">ReplayBufferConfig</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.main.service.data_batch_validator.DataBatchValidator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Data Batch Validator</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.main.service.data_batch_validator.DataBatchValidator.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_batch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.main.service.data_batch_validator.DataBatchValidator.validate" title="Link to this definition"></a></dt>
+<dd><p>Validates the data batch to have the required structure
+:param data_batch: Data batch to record
+:raise: ValidationError if not valid (check jsonschema documentation for details)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.main.service.record_data_response">
+<span id="src-main-service-record-data-response-module"></span><h2>src.main.service.record_data_response module<a class="headerlink" href="#module-src.main.service.record_data_response" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.main.service.record_data_response.RecordDataResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.main.service.record_data_response.</span></span><span class="sig-name descname"><span class="pre">RecordDataResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.main.service.record_data_response.RecordDataResponseStatus" title="src.main.service.record_data_response.RecordDataResponseStatus"><span class="pre">RecordDataResponseStatus</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.main.service.record_data_response.RecordDataResponse" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Record Data Batch Response</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.main.service.record_data_response.RecordDataResponseStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.main.service.record_data_response.</span></span><span class="sig-name descname"><span class="pre">RecordDataResponseStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.main.service.record_data_response.RecordDataResponseStatus" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Enum modeling possible responses to record data requests</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="src.main.service.post_response.PostResponseStatus.INTERNAL_ERROR">
-<span class="sig-name descname"><span class="pre">INTERNAL_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Internal</span> <span class="pre">Error.'</span></em><a class="headerlink" href="#src.main.service.post_response.PostResponseStatus.INTERNAL_ERROR" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="src.main.service.record_data_response.RecordDataResponseStatus.INTERNAL_ERROR">
+<span class="sig-name descname"><span class="pre">INTERNAL_ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Internal</span> <span class="pre">Error.'</span></em><a class="headerlink" href="#src.main.service.record_data_response.RecordDataResponseStatus.INTERNAL_ERROR" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="src.main.service.post_response.PostResponseStatus.INVALID_SCHEMA">
-<span class="sig-name descname"><span class="pre">INVALID_SCHEMA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Wrong</span> <span class="pre">Json</span> <span class="pre">Schema.'</span></em><a class="headerlink" href="#src.main.service.post_response.PostResponseStatus.INVALID_SCHEMA" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="src.main.service.record_data_response.RecordDataResponseStatus.INVALID_SCHEMA">
+<span class="sig-name descname"><span class="pre">INVALID_SCHEMA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Wrong</span> <span class="pre">Json</span> <span class="pre">Schema.'</span></em><a class="headerlink" href="#src.main.service.record_data_response.RecordDataResponseStatus.INVALID_SCHEMA" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="src.main.service.post_response.PostResponseStatus.OK">
-<span class="sig-name descname"><span class="pre">OK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Data</span> <span class="pre">recorded</span> <span class="pre">successfully.'</span></em><a class="headerlink" href="#src.main.service.post_response.PostResponseStatus.OK" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="src.main.service.record_data_response.RecordDataResponseStatus.OK">
+<span class="sig-name descname"><span class="pre">OK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Data</span> <span class="pre">recorded</span> <span class="pre">successfully.'</span></em><a class="headerlink" href="#src.main.service.record_data_response.RecordDataResponseStatus.OK" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -125,19 +151,7 @@
 :return: Flask app of the Replay buffer service</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="src.main.service.replay_buffer_service.ReplayBufferService.test_client">
-<span class="sig-name descname"><span class="pre">test_client</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">FlaskClient</span></span></span><a class="headerlink" href="#src.main.service.replay_buffer_service.ReplayBufferService.test_client" title="Link to this definition"></a></dt>
-<dd><p>Get the testing client.
-:return: test client from the Replay buffer service’s Flask app</p>
 </dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.main.service.replay_buffer_service.schema">
-<span class="sig-prename descclassname"><span class="pre">src.main.service.replay_buffer_service.</span></span><span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_preds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_preys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_actions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.main.service.replay_buffer_service.schema" title="Link to this definition"></a></dt>
-<dd></dd></dl>
 
 </section>
 <section id="module-src.main.service">

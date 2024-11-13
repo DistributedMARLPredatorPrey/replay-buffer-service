@@ -4,10 +4,18 @@ src.main.service package
 Submodules
 ----------
 
-src.main.service.post\_response module
---------------------------------------
+src.main.service.data\_batch\_validator module
+----------------------------------------------
 
-.. automodule:: src.main.service.post_response
+.. automodule:: src.main.service.data_batch_validator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+src.main.service.record\_data\_response module
+----------------------------------------------
+
+.. automodule:: src.main.service.record_data_response
    :members:
    :undoc-members:
    :show-inheritance:
