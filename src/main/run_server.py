@@ -14,6 +14,6 @@ def app() -> Flask:
     """
     replay_buffer_config = YamlConfigParser().replay_buffer_configuration()
     replay_buffer_service: ReplayBufferService = ReplayBufferService(
-        dataset_path=replay_buffer_config.predator_dataset_path,
+        config=replay_buffer_config,
     )
     return replay_buffer_service.app()
