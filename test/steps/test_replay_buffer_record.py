@@ -4,7 +4,7 @@ from typing import Dict, List
 from behave import *
 from werkzeug.test import TestResponse
 
-from src.main.service.post_response import PostResponseStatus
+from src.main.service.record_data_response import RecordDataResponse
 
 use_step_matcher("re")
 
@@ -57,7 +57,7 @@ def test_success_response(context):
     Tests the previously made request is successful
     :type context: behave.runner.Context
     """
-    assert context.response.text == json.dumps({"status": PostResponseStatus.OK.value})
+    assert context.response.text == json.dumps({"status": RecordDataResponse.OK.value})
 
 
 @step("the message should indicate unsuccessful operation")
@@ -67,5 +67,5 @@ def test_invalid_schema_response(context):
     :type context: behave.runner.Context
     """
     assert context.response.text == json.dumps(
-        {"status": PostResponseStatus.INVALID_SCHEMA.value}
+        {"status": RecordDataResponse.INVALID_SCHEMA.value}
     )
