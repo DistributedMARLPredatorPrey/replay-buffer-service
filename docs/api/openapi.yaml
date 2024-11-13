@@ -13,10 +13,14 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: "./schemas.yml#/components/schemas/DataBatch"
+                            $ref: "./schemas.yml#/components/schemas/RecordDataRequest"
             responses:
                 200:
                     description: Data recorded successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "./schemas.yml#/components/schemas/RecordDataResponse"
                 400:
                     description: The request was invalid
 
@@ -36,6 +40,6 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "./schemas.yml#/components/schemas/DataBatch"
+                                $ref: "./schemas.yml#/components/schemas/RecordDataResponse"
                 400:
                     description: The request was invalid

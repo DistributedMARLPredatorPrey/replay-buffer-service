@@ -1,6 +1,6 @@
 components:
     schemas:
-        DataRecord:
+        RecordDataRequest:
             type: object
             properties:
                 State:
@@ -28,7 +28,24 @@ components:
                         items:
                             type: number
 
-        DataBatch:
+        RecordDataResponseStatus:
+            type: string
+            description: Record Data Batch Response Status
+            enum:
+                - "Data recorded successfully."
+                - "Wrong Json Schema."
+                - "Internal Error."
+
+        RecordDataResponse:
+            type: object
+            description: Record Data Batch Response
+            properties:
+                status:
+                    $ref: '#/components/schemas/RecordDataResponseStatus'
+                    description: The status of the record data request.
+                    example: '{"status": "Data recorded successfully."}'
+
+        GetDataBatchResponse:
             type: object
             properties:
                 State:
