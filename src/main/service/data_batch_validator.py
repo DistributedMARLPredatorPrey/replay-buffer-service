@@ -3,6 +3,10 @@ from jsonschema import validate
 
 
 class DataBatchValidator:
+    """
+    Data Batch Validator
+    """
+
     def __init__(self, config: ReplayBufferConfig):
         self.__num_preds, self.__num_preys, self.__num_states, self.__num_actions = (
             config.num_predators,
@@ -12,6 +16,11 @@ class DataBatchValidator:
         )
 
     def validate(self, data_batch):
+        """
+        Validates the data batch to have the required structure
+        :param data_batch: Data batch to record
+        :raise: ValidationError if not valid (check jsonschema documentation for details)
+        """
         return validate(instance=data_batch, schema=self.__schema())
 
     def __schema(self):

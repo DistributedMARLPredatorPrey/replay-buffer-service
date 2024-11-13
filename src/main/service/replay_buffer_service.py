@@ -1,17 +1,17 @@
-import json
 import os
-from typing import List, Callable
+from typing import List
 
 import pandas as pd
-import yaml
 from flask import request, Flask
-from flask.testing import FlaskClient
-from jsonschema import validate, ValidationError
+from jsonschema import ValidationError
 from pandas import DataFrame
 
-from src.main.service.data_batch_validator import DataBatchValidator
 from src.main.parser.config import ReplayBufferConfig
-from src.main.service.record_data_response import RecordDataResponse
+from src.main.service.data_batch_validator import DataBatchValidator
+from src.main.service.record_data_response import (
+    RecordDataResponseStatus,
+    RecordDataResponse,
+)
 
 
 class ReplayBufferService:
@@ -81,17 +81,14 @@ class ReplayBufferService:
             - INVALID_SCHEMA if the provided data has invalid structure
             - INTERNAL_ERROR if a generic error occurred
         """
-        response: Callable[[RecordDataResponse], str] = lambda status: json.dumps(
-            {"status": status.value}
-        )
         data_batch = request.json
         try:
             self.__data_batch_validator.validate(data_batch=data_batch)
             df: DataFrame = pd.read_csv(self.__dataset_path)
             df = pd.concat([df, pd.DataFrame(data_batch)], ignore_index=True)
             df.to_csv(self.__dataset_path, index=False)
-            return response(RecordDataResponse.OK)
+            return RecordDataResponse(RecordDataResponseStatus.OK).text
         except ValidationError:
-            return response(RecordDataResponse.INVALID_SCHEMA)
+            return RecordDataResponse(RecordDataResponseStatus.INVALID_SCHEMA).text
         except:
-            return response(RecordDataResponse.INTERNAL_ERROR)
+            return RecordDataResponse(RecordDataResponseStatus.INTERNAL_ERROR).text
