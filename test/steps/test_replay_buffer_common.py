@@ -1,6 +1,7 @@
 import os.path
 
 from behave import *
+from flask import Flask
 
 from src.main.parser.config import ReplayBufferConfig
 from src.main.service.replay_buffer_service import ReplayBufferService
@@ -22,8 +23,11 @@ def setup_replay_buffer(context):
         dataset_path=os.path.join("test", "resources", "dataset.csv"),
     )
     replay_buffer: ReplayBufferService = ReplayBufferService(config)
+    app: Flask = replay_buffer.app()
+    app.config["TESTING"] = True
+    # Set context variables
     context.conf = config
-    context.client = replay_buffer.test_client()
+    context.client = app.test_client()
 
 
 @then("I should receive a 200 as response status")

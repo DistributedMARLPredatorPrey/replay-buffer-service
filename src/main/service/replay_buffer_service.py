@@ -1,54 +1,17 @@
-import json
 import os
-from enum import Enum
-from typing import List, Callable
+from typing import List
 
 import pandas as pd
 from flask import request, Flask
-from flask.testing import FlaskClient
+from jsonschema import ValidationError
 from pandas import DataFrame
-from jsonschema import validate, ValidationError
-import yaml
 
 from src.main.parser.config import ReplayBufferConfig
-from src.main.service.post_response import PostResponseStatus
-
-
-def schema(num_preds, num_preys, num_states, num_actions):
-    state_schema = {
-        "type": "array",
-        "items": {
-            "type": "array",
-            "minItems": num_states * (num_preds + num_preys),
-            "maxItems": num_states * (num_preds + num_preys),
-            "items": {"type": "number"},
-        },
-    }
-    return {
-        "type": "object",
-        "properties": {
-            "State": state_schema,
-            "Reward": {
-                "type": "array",
-                "items": {
-                    "type": "array",
-                    "minItems": num_preds + num_preys,
-                    "maxItems": num_preds + num_preys,
-                    "items": {"type": "number"},
-                },
-            },
-            "Action": {
-                "type": "array",
-                "items": {
-                    "type": "array",
-                    "minItems": num_actions * (num_preds + num_preys),
-                    "maxItems": num_actions * (num_preds + num_preys),
-                    "items": {"type": "number"},
-                },
-            },
-            "Next State": state_schema,
-        },
-    }
+from src.main.service.data_batch_validator import DataBatchValidator
+from src.main.service.record_data_response import (
+    RecordDataResponseStatus,
+    RecordDataResponse,
+)
 
 
 class ReplayBufferService:
@@ -60,16 +23,7 @@ class ReplayBufferService:
         self.__dataset_path: str = config.dataset_path
         self.__add_rules()
         self.__setup_buffers()
-        self.__data_record_schema = schema(
-            config.num_predators,
-            config.num_preys,
-            config.num_states,
-            config.num_actions,
-        )
-
-    def __schemas(self):
-        with open("/schemas.yaml", "r") as schema_file:
-            return yaml.safe_load(schema_file)
+        self.__data_batch_validator = DataBatchValidator(config)
 
     def app(self) -> Flask:
         """
@@ -77,14 +31,6 @@ class ReplayBufferService:
         :return: Flask app of the Replay buffer service
         """
         return self.__app
-
-    def test_client(self) -> FlaskClient:
-        """
-        Get the testing client.
-        :return: test client from the Replay buffer service's Flask app
-        """
-        self.__app.config["TESTING"] = True
-        return self.__app.test_client()
 
     def __add_rules(self):
         """
@@ -115,7 +61,7 @@ class ReplayBufferService:
         """
         Batches data from the replay buffer.
         :param size: number of rows to batch
-        :return: json representing the data batch
+        :return: Json representing the data batch
         """
         empty_json_str: str = "{}"
         if self.__dataset_path is not None:
@@ -130,22 +76,19 @@ class ReplayBufferService:
     def __record_data(self):
         """
         Records data inside the replay buffer.
-        :return: Name of the Response:
-            - SUCCESSFUL if the data is correctly inserted
-            - WRONG_SHAPE if the provided data has a different shape of the replay buffer
-            - ERROR if a generic error occurred
+        :return: Json as string containing a RecordDataResponse
+            - OK if the data is correctly inserted
+            - INVALID_SCHEMA if the provided data has invalid structure
+            - INTERNAL_ERROR if a generic error occurred
         """
-        response: Callable[[PostResponseStatus], str] = lambda status: json.dumps(
-            {"status": status.value}
-        )
-        row = request.json
+        data_batch = request.json
         try:
-            validate(instance=row, schema=self.__data_record_schema)
+            self.__data_batch_validator.validate(data_batch=data_batch)
             df: DataFrame = pd.read_csv(self.__dataset_path)
-            df = pd.concat([df, pd.DataFrame(row)], ignore_index=True)
+            df = pd.concat([df, pd.DataFrame(data_batch)], ignore_index=True)
             df.to_csv(self.__dataset_path, index=False)
-            return response(PostResponseStatus.OK)
+            return RecordDataResponse(RecordDataResponseStatus.OK).text
         except ValidationError:
-            return response(PostResponseStatus.INVALID_SCHEMA)
+            return RecordDataResponse(RecordDataResponseStatus.INVALID_SCHEMA).text
         except:
-            return response(PostResponseStatus.INTERNAL_ERROR)
+            return RecordDataResponse(RecordDataResponseStatus.INTERNAL_ERROR).text

@@ -17,8 +17,9 @@ class YamlConfigParser:
 
     def replay_buffer_configuration(self) -> ReplayBufferConfig:
         """
-        Creates an EnvironmentConfig object by extracting information from the config file,
+        Creates an ReplayBufferConfig object by extracting information from the config file,
         whose path is specified by GLOBAL_CONFIG_PATH environment variable.
+        It also leverages environment variables.
         :return: environment config
         """
         env_conf = self.__load_config(os.environ.get("GLOBAL_CONFIG_PATH"))[
@@ -29,5 +30,5 @@ class YamlConfigParser:
             num_preys=env_conf["num_preys"],
             num_states=env_conf["num_states"],
             num_actions=env_conf["num_actions"],
-            dataset_path=os.environ.get("PREDATOR_DATASET_PATH"),
+            dataset_path=os.environ.get("DATASET_PATH"),
         )
