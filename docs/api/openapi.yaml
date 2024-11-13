@@ -19,8 +19,7 @@ paths:
                     description: Data recorded successfully
                 400:
                     description: The request was invalid
-                403:
-                    description: User not authorized
+
     /batch_data/{size}:
         get:
             summary: Batch Data from the Replay Buffer
@@ -40,5 +39,3 @@ paths:
                                 $ref: "./schemas.yml#/components/schemas/DataBatch"
                 400:
                     description: The request was invalid
-                403:
-                    description: User not authorized
