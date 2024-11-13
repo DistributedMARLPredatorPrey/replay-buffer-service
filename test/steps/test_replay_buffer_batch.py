@@ -9,15 +9,16 @@ use_step_matcher("re")
 
 
 @when("I record a data batch of N rows")
-def step_impl(context):
+def record_data_batch(context):
     """
+    Record 10 data rows inside the Replay Buffer
     :type context: behave.runner.Context
     """
     data: Dict[str, List[List[float]]] = {
-        "State": [[1.0, 1.0, 2.0, 2.0], [1.1, 1.1, 2.1, 2.1]],
-        "Reward": [[1, 2], [1, 2]],
-        "Action": [[1.0, 1.0, 2.0, 2.0], [1.1, 1.1, 2.1, 2.1]],
-        "Next State": [[1.0, 1.0, 2.0, 2.0], [1.1, 1.1, 2.1, 2.1]],
+        "State": [[1.0, 1.0, 2.0, 2.0]],
+        "Reward": [[1, 2]],
+        "Action": [[1.0, 1.0, 2.0, 2.0]],
+        "Next State": [[1.0, 1.0, 2.0, 2.0]],
     }
     context.record_size = 10
     for _ in range(context.record_size):
@@ -25,8 +26,10 @@ def step_impl(context):
 
 
 @step("I request to receive a data data batch of M rows, where M>N")
-def step_impl(context):
+def get_data_batch_empty(context):
     """
+    Get a data batch from the Replay Buffer.
+    The requested size (number of rows) is greater than the current dataset's
     :type context: behave.runner.Context
     """
     context.batch_size = 50
@@ -36,16 +39,19 @@ def step_impl(context):
 
 
 @step("the received data batch should be empty")
-def step_impl(context):
+def test_empty_data_batch(context):
     """
+    Tests if the previously received data is empty
     :type context: behave.runner.Context
     """
     assert pd.DataFrame(json.loads(context.response.text)).shape[0] == 0
 
 
 @step("I request to receive a data data batch of M rows, where M<=N")
-def step_impl(context):
+def get_data_batch_nonempty(context):
     """
+    Get a data batch from the Replay Buffer.
+    The requested size (number of rows) is less than the current dataset's
     :type context: behave.runner.Context
     """
     context.batch_size = 5
@@ -55,16 +61,18 @@ def step_impl(context):
 
 
 @step("the received data batch should be nonempty")
-def step_impl(context):
+def test_nonempty_data_batch(context):
     """
+    Tests if the previously received data is nonempty
     :type context: behave.runner.Context
     """
     assert pd.DataFrame(json.loads(context.response.text)).shape[0] > 0
 
 
 @step("the received data batch should have M rows")
-def step_impl(context):
+def test_data_batch_size(context):
     """
+    Tests if the previously received data has the requested size
     :type context: behave.runner.Context
     """
     assert (

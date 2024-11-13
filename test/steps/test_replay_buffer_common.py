@@ -1,3 +1,5 @@
+import os.path
+
 from behave import *
 
 from src.main.parser.config import ReplayBufferConfig
@@ -7,13 +9,17 @@ use_step_matcher("re")
 
 
 @given("The Replay Buffer is up and running")
-def step_impl(context):
+def setup_replay_buffer(context):
+    """
+    Configures and starts the Replay Buffer service.
+    :type context: behave.runner.Context
+    """
     config: ReplayBufferConfig = ReplayBufferConfig(
         num_predators=1,
         num_preys=1,
         num_states=2,
         num_actions=2,
-        dataset_path="dataset.csv",
+        dataset_path=os.path.join("test", "resources", "dataset.csv"),
     )
     replay_buffer: ReplayBufferService = ReplayBufferService(config)
     context.conf = config
@@ -21,5 +27,9 @@ def step_impl(context):
 
 
 @then("I should receive a 200 as response status")
-def step_impl(context):
+def test_response_ok(context):
+    """
+    Tests if the response status of the previous request is OK: 200.
+    :type context: behave.runner.Context
+    """
     assert context.response.status_code == 200
