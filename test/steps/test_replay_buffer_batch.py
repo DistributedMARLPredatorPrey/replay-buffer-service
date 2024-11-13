@@ -50,8 +50,9 @@ def step_impl(context):
     """
     context.batch_size = 5
     assert context.record_size >= context.batch_size
-    response: TestResponse =  context.client.get(f"batch_data/{context.batch_size}")
+    response: TestResponse = context.client.get(f"batch_data/{context.batch_size}")
     context.response = response
+
 
 @step("the received data batch should be nonempty")
 def step_impl(context):
@@ -66,4 +67,6 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    assert pd.DataFrame(json.loads(context.response.text)).shape[0] == context.batch_size
+    assert (
+        pd.DataFrame(json.loads(context.response.text)).shape[0] == context.batch_size
+    )

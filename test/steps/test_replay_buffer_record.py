@@ -11,7 +11,6 @@ from src.main.service.replay_buffer_service import ReplayBufferService
 use_step_matcher("re")
 
 
-
 @step("I prepare an valid data record")
 def step_impl(context):
     valid_data_record: Dict[str, List[List[float]]] = {
@@ -21,6 +20,7 @@ def step_impl(context):
         "Next State": [[1.0, 1.0, 2.0, 2.0], [1.1, 1.1, 2.1, 2.1]],
     }
     context.data_record = valid_data_record
+
 
 @step("I prepare an invalid data record")
 def step_impl(context):
@@ -35,10 +35,13 @@ def step_impl(context):
 
 @when("I request this data to be recorded")
 def step_impl(context):
-    response: TestResponse = context.client.post("record_data/", json=context.data_record)
+    response: TestResponse = context.client.post(
+        "record_data/", json=context.data_record
+    )
     context.response = response
 
-@then('the message should indicate successful operation')
+
+@then("the message should indicate successful operation")
 def step_impl(context):
     assert context.response.text == json.dumps({"status": PostResponseStatus.OK.value})
 
@@ -48,4 +51,6 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    assert context.response.text == json.dumps({"status": PostResponseStatus.INVALID_SCHEMA.value})
+    assert context.response.text == json.dumps(
+        {"status": PostResponseStatus.INVALID_SCHEMA.value}
+    )
