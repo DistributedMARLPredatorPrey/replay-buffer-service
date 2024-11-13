@@ -1,0 +1,45 @@
+openapi: 3.0.0
+info:
+    title: Replay Buffer Service API
+    description: RL Replay Buffer microservice
+    version: 1.0.0
+
+paths:
+    /record_data:
+        post:
+            summary: Record Data to the Replay Buffer
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "./schemas.yml#/components/schemas/RecordDataRequest"
+            responses:
+                200:
+                    description: Data recorded successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "./schemas.yml#/components/schemas/RecordDataResponse"
+                400:
+                    description: The request was invalid
+
+    /batch_data/{size}:
+        get:
+            summary: Batch Data from the Replay Buffer
+            parameters:
+                - in: query
+                  name: size
+                  required: true
+                  schema:
+                      type: number
+                  description: Number of rows to batch
+            responses:
+                200:
+                    description: Data batched successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "./schemas.yml#/components/schemas/RecordDataResponse"
+                400:
+                    description: The request was invalid

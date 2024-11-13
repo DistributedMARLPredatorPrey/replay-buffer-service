@@ -3,8 +3,8 @@ name: Replay Buffer Service Build and Deploy Documentation
 on:
   push:
     branches:
-      - release/*
-      
+      - main
+
 permissions:
   contents: write
 
@@ -23,15 +23,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install sphinx sphinx_rtd_theme
-      - name: Build documentation
+      - name: Build Code Documentation
         run: |
-          sphinx-apidoc -o docs src/
-          make html -C docs/
+          sphinx-apidoc -o docs/code/ src/
+          make html -C docs/code/
+      - name: Build API Documentation
+        uses: fluximus-prime/redocly-cli-github-action@v1
+        with:
+          args: 'build-docs docs/api/openapi.yaml -o docs/static/html/api/index.html'
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/_build/html/
+          publish_dir: docs/static/html/
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: 'docs: update code documentation'
