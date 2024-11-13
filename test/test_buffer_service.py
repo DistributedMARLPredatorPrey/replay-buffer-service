@@ -62,19 +62,19 @@ class TestReplayBufferService(unittest.TestCase):
         Test the data to be properly recorded into the Replay buffer
         :return:
         """
-        invalid_data =  {
+        invalid_data = {
             "State": [[1.0, 1.0], [1.1, 1.1, 2.1, 2.1]],
             "Reward": self.__data["Reward"],
             "Action": self.__data["Action"],
-            "Next State": self.__data["Next State"]
+            "Next State": self.__data["Next State"],
         }
 
         response: TestResponse = self.__post_data(invalid_data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response.text, json.dumps({"status": PostResponseStatus.INVALID_SCHEMA.value})
+            response.text,
+            json.dumps({"status": PostResponseStatus.INVALID_SCHEMA.value}),
         )
-
 
     # def test_batch_data(self):
     #     """
