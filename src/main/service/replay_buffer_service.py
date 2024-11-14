@@ -19,26 +19,19 @@ class ReplayBufferService:
         """
         Init the Replay buffer service by set upping the dataset and by registering the routes.
         """
-        self.__app: Flask = Flask(__name__)
+        self.app: Flask = Flask(__name__)
         self.__dataset_path: str = config.dataset_path
-        self.__add_rules()
         self.__setup_buffers()
         self.__data_batch_validator = DataBatchValidator(config)
-
-    def app(self) -> Flask:
-        """
-        Get the app.
-        :return: Flask app of the Replay buffer service
-        """
-        return self.__app
+        self.__add_rules()
 
     def __add_rules(self):
         """
         Add routing rules to the Replay buffer service.
         :return:
         """
-        self.__app.add_url_rule("/batch_data/<size>", "batch data", self.__batch_data)
-        self.__app.add_url_rule(
+        self.app.add_url_rule("/batch_data/<size>", "batch data", self.__batch_data)
+        self.app.add_url_rule(
             "/record_data/",
             "record data",
             self.__record_data,
