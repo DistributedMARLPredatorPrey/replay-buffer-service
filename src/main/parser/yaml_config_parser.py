@@ -1,7 +1,7 @@
 import os
 import yaml
 
-from src.main.parser.config import EnvironmentConfig, ReplayBufferConfig
+from src.main.parser.config import ReplayBufferConfig
 
 
 class YamlConfigParser:
