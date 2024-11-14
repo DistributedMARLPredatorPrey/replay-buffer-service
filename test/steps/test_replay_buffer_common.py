@@ -23,7 +23,7 @@ def setup_replay_buffer(context):
         dataset_path=os.path.join("test", "resources", "dataset.csv"),
     )
     replay_buffer: ReplayBufferService = ReplayBufferService(config)
-    app: Flask = replay_buffer.app()
+    app: Flask = replay_buffer.app
     app.config["TESTING"] = True
     # Set context variables
     context.conf = config
