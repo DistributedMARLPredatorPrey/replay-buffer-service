@@ -8,11 +8,10 @@ class DataBatchValidator:
     """
 
     def __init__(self, config: ReplayBufferConfig):
-        self.__num_preds, self.__num_preys, self.__num_states, self.__num_actions = (
+        self.__num_preds, self.__num_preys, self.__num_states = (
             config.num_predators,
             config.num_preys,
             config.num_states,
-            config.num_actions,
         )
 
     def validate(self, data_batch):
@@ -50,10 +49,8 @@ class DataBatchValidator:
                     "type": "array",
                     "items": {
                         "type": "array",
-                        "minItems": self.__num_actions
-                        * (self.__num_preds + self.__num_preys),
-                        "maxItems": self.__num_actions
-                        * (self.__num_preds + self.__num_preys),
+                        "minItems": 2 * (self.__num_preds + self.__num_preys),
+                        "maxItems": 2 * (self.__num_preds + self.__num_preys),
                         "items": {"type": "number"},
                     },
                 },
