@@ -10,4 +10,5 @@ dist/
 .eggs/
 **/*egg-info/
 docs/_build/
-src/main/resources
+src/main/resources/*
+!src/main/resources/.gitkeep
