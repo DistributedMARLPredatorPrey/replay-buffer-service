@@ -93,19 +93,9 @@
 <span id="src-main-parser-config-module"></span><h2>src.main.parser.config module<a class="headerlink" href="#module-src.main.parser.config" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="src.main.parser.config.ReplayBufferConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.main.parser.config.</span></span><span class="sig-name descname"><span class="pre">ReplayBufferConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_predators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_preys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_actions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.main.parser.config.ReplayBufferConfig" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.main.parser.config.</span></span><span class="sig-name descname"><span class="pre">ReplayBufferConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_predators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_preys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_root_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.main.parser.config.ReplayBufferConfig" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Sum type modelling the replay buffer configuration.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.main.parser.config.ReplayBufferConfig.dataset_path">
-<span class="sig-name descname"><span class="pre">dataset_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#src.main.parser.config.ReplayBufferConfig.dataset_path" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="src.main.parser.config.ReplayBufferConfig.num_actions">
-<span class="sig-name descname"><span class="pre">num_actions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#src.main.parser.config.ReplayBufferConfig.num_actions" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="src.main.parser.config.ReplayBufferConfig.num_predators">
 <span class="sig-name descname"><span class="pre">num_predators</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#src.main.parser.config.ReplayBufferConfig.num_predators" title="Link to this definition"></a></dt>
@@ -121,11 +111,31 @@
 <span class="sig-name descname"><span class="pre">num_states</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#src.main.parser.config.ReplayBufferConfig.num_states" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.main.parser.config.ReplayBufferConfig.project_root_path">
+<span class="sig-name descname"><span class="pre">project_root_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#src.main.parser.config.ReplayBufferConfig.project_root_path" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
-<section id="src-main-parser-yaml-config-parser-module">
-<h2>src.main.parser.yaml_config_parser module<a class="headerlink" href="#src-main-parser-yaml-config-parser-module" title="Link to this heading"></a></h2>
+<section id="module-src.main.parser.yaml_config_parser">
+<span id="src-main-parser-yaml-config-parser-module"></span><h2>src.main.parser.yaml_config_parser module<a class="headerlink" href="#module-src.main.parser.yaml_config_parser" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.main.parser.yaml_config_parser.YamlConfigParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.main.parser.yaml_config_parser.</span></span><span class="sig-name descname"><span class="pre">YamlConfigParser</span></span><a class="headerlink" href="#src.main.parser.yaml_config_parser.YamlConfigParser" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.main.parser.yaml_config_parser.YamlConfigParser.replay_buffer_configuration">
+<span class="sig-name descname"><span class="pre">replay_buffer_configuration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.main.parser.config.ReplayBufferConfig" title="src.main.parser.config.ReplayBufferConfig"><span class="pre">ReplayBufferConfig</span></a></span></span><a class="headerlink" href="#src.main.parser.yaml_config_parser.YamlConfigParser.replay_buffer_configuration" title="Link to this definition"></a></dt>
+<dd><p>Creates an ReplayBufferConfig object by extracting information from the config file,
+whose path is specified by GLOBAL_CONFIG_PATH environment variable.
+It also leverages environment variables.
+:return: environment config</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-src.main.parser">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.main.parser" title="Link to this heading"></a></h2>
