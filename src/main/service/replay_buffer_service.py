@@ -25,7 +25,7 @@ class ReplayBufferService:
             "src",
             "main",
             "resources",
-            f"dataset_{config.num_predators}_{config.num_preys}.csv",
+            f"dataset.csv",
         )
         self.__setup_buffers()
         self.__data_batch_validator = DataBatchValidator(config)

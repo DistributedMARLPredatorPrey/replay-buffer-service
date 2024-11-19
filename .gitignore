@@ -10,3 +10,4 @@ dist/
 .eggs/
 **/*egg-info/
 docs/_build/
+src/main/resources
