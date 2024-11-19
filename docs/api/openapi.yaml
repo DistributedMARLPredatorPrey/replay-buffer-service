@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
     title: Replay Buffer Service API
     description: RL Replay Buffer microservice
-    version: 1.0.0
+    version: 1.1.2
 
 paths:
     /record_data:

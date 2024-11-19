@@ -5,7 +5,7 @@ with open("requirements.txt") as f:
 
 setup(
     name="replay-buffer-service",
-    version="1.1.1",
+    version="1.1.2",
     description="Replay buffer service",
     url="https://distributedmarlpredatorprey.github.io/replay-buffer-service/",
     author="Luca Fabri",
