@@ -20,7 +20,13 @@ class ReplayBufferService:
         Init the Replay buffer service by set upping the dataset and by registering the routes.
         """
         self.app: Flask = Flask(__name__)
-        self.__dataset_path: str = config.dataset_path
+        self.__dataset_path: str = os.path.join(
+            config.project_root_path,
+            "src",
+            "main",
+            "resources",
+            f"dataset_{config.num_predators}_{config.num_preys}.csv",
+        )
         self.__setup_buffers()
         self.__data_batch_validator = DataBatchValidator(config)
         self.__add_rules()

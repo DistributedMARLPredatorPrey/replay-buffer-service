@@ -10,4 +10,4 @@ class ReplayBufferConfig:
     num_predators: int
     num_preys: int
     num_states: int
-    dataset_path: str
+    project_root_path: str
