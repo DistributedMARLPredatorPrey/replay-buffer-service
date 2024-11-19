@@ -6,14 +6,9 @@ import logging
 
 logging.getLogger().setLevel(logging.INFO)
 
-
-def app() -> Flask:
-    """
-    Creates a Replay buffer service
-    :return: Flask app of the Replay buffer service
-    """
-    replay_buffer_config = YamlConfigParser().replay_buffer_configuration()
-    replay_buffer_service: ReplayBufferService = ReplayBufferService(
-        config=replay_buffer_config,
-    )
-    return replay_buffer_service.app()
+# Create a Replay buffer service and get the Flask App
+replay_buffer_config = YamlConfigParser().replay_buffer_configuration()
+replay_buffer_service: ReplayBufferService = ReplayBufferService(
+    config=replay_buffer_config
+)
+app: Flask = replay_buffer_service.app

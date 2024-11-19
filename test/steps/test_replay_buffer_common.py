@@ -19,11 +19,10 @@ def setup_replay_buffer(context):
         num_predators=1,
         num_preys=1,
         num_states=2,
-        num_actions=2,
         dataset_path=os.path.join("test", "resources", "dataset.csv"),
     )
     replay_buffer: ReplayBufferService = ReplayBufferService(config)
-    app: Flask = replay_buffer.app()
+    app: Flask = replay_buffer.app
     app.config["TESTING"] = True
     # Set context variables
     context.conf = config

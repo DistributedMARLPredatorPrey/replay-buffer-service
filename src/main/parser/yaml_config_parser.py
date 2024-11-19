@@ -1,7 +1,7 @@
 import os
 import yaml
 
-from src.main.parser.config import EnvironmentConfig, ReplayBufferConfig
+from src.main.parser.config import ReplayBufferConfig
 
 
 class YamlConfigParser:
@@ -29,6 +29,5 @@ class YamlConfigParser:
             num_predators=env_conf["num_predators"],
             num_preys=env_conf["num_preys"],
             num_states=env_conf["num_states"],
-            num_actions=env_conf["num_actions"],
-            dataset_path=os.environ.get("DATASET_PATH"),
+            project_root_path=os.environ.get("PROJECT_ROOT_PATH"),
         )

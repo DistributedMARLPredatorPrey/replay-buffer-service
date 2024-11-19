@@ -6,9 +6,9 @@
 Welcome to Replay Buffer Service's documentation!
 =============================================
 
-**Replay Buffer Service** is a Python application which serves as the replay buffer for a Reinforcement Learning algorithm.
+**Replay Buffer Service** is responsible for storing the agents' experiences inside a dataset, used for training a MARL environment.
 
-It provides a *simple* and *intuitive* API to get and store data.
+It provides a *simple* and *intuitive API* to get and store data.
 
 .. toctree::
    :maxdepth: 2
